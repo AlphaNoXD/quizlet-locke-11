@@ -14,7 +14,7 @@ const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 // DOM Elements
-const uploadButton = document.getElementById('uploadButton');
+const createButton = document.getElementById('createButton');
 const formContainer = document.getElementById('formContainer');
 const flashcardContainer = document.getElementById('flashcardContainer');
 const submitButton = document.getElementById('submitButton');
@@ -23,7 +23,7 @@ const questionInput = document.getElementById('question');
 const answerInput = document.getElementById('answer');
 
 // Show the form to create a flashcard
-uploadButton.addEventListener('click', () => {
+createButton.addEventListener('click', () => {
     formContainer.classList.toggle('hidden');
 });
 
