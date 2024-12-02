@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-analytics.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Flashcard App</h1>
+        <button id="uploadButton">Upload Flashcard</button>
+    </header>
+    <main>
+        <div id="flashcardContainer"></div>
+        <div id="formContainer" class="hidden">
+            <h2>Create Flashcard</h2>
+            <input type="text" id="question" placeholder="Question" required>
+            <input type="text" id="answer" placeholder="Answer" required>
+            <button id="submitButton">Submit</button>
+            <button id="cancelButton">Cancel</button>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 All rights reserved. For educational purposes only.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
