@@ -4,7 +4,7 @@ let cards = [];
 const GITHUB_USERNAME = "AlphaNoXD";
 const GITHUB_REPO = "quizlet-locke-11";
 const FILE_PATH = "flashcards.json";
-const TOKEN = "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"; // Replace with your personal access token.
+const TOKEN = "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"; // Replace with your personal access token.
 
 // DOM Elements
 const termInput = document.getElementById('term');
@@ -14,7 +14,7 @@ const cardsContainer = document.getElementById('cards');
 
 // Fetch flashcards from GitHub
 const fetchFlashcards = async () => {
-    const url = `https://api.github.com/repos/AlphaNoXD/quizlet-locke-11/contents/flashcards.json`;
+    const url = `https://api.github.com/repos/AlphaNoXD/quizlet-locke-11/flashcards.json`;
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error("Failed to fetch flashcards.");
@@ -31,7 +31,7 @@ const fetchFlashcards = async () => {
 
 // Save flashcards to GitHub
 const saveFlashcards = async () => {
-    const url = `https://api.github.com/repos/AlphaNoXD/quizlet-locke-11/contents/flashcards.json`;
+    const url = `https://api.github.com/repos/AlphaNoXD/quizlet-locke-11/flashcards.json`;
     const content = btoa(JSON.stringify(cards)); // Encode content as Base64
 
     try {
