@@ -3,29 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizlet Clone</title>
+    <title>Flashcards with GitHub Storage</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
-        <h1>Quizlet Clone</h1>
+        <h1>Flashcards Quizlet</h1>
     </header>
     <main>
         <div class="container">
             <div class="card-form">
-                <input id="term" type="text" placeholder="Term" />
-                <input id="definition" type="text" placeholder="Definition" />
+                <input id="term" type="text" placeholder="Question (Front)" />
+                <input id="definition" type="text" placeholder="Answer (Back)" />
                 <button id="add-card" class="btn">Add Card</button>
             </div>
             <div class="cards-container">
                 <h2>Your Flashcards</h2>
                 <div id="cards"></div>
             </div>
-            <button id="save-quizlet" class="btn">Save Flashcards</button>
-            <button id="load-quizlet" class="btn">Load Flashcards</button>
         </div>
     </main>
     <script src="script.js"></script>
 </body>
 </html>
-
