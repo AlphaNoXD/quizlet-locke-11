@@ -14,7 +14,7 @@ const cardsContainer = document.getElementById('cards');
 
 // Fetch flashcards from GitHub
 const fetchFlashcards = async () => {
-    const url = `https://github.com/AlphaNoXD/quizlet-locke-11/blob/main/flashcards.json`;
+    const url = `https://api.github.com/repos/AlphaNoXD/quizlet-locke-11/contents/flashcards.json`;
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error("Failed to fetch flashcards.");
@@ -31,7 +31,7 @@ const fetchFlashcards = async () => {
 
 // Save flashcards to GitHub
 const saveFlashcards = async () => {
-    const url = `https://github.com/AlphaNoXD/quizlet-locke-11/blob/main/flashcards.json`;
+    const url = `https://api.github.com/repos/AlphaNoXD/quizlet-locke-11/contents/flashcards.json`;
     const content = btoa(JSON.stringify(cards)); // Encode content as Base64
 
     try {
