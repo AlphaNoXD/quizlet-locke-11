@@ -1,99 +1,57 @@
-// Your Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyB2YAEosEBBrzb6BJr1JcyWLfwxZL58J_s",
-    authDomain: "quizlet-daw.firebaseapp.com",
-    projectId: "quizlet-daw",
-    storageBucket: "quizlet-daw.firebasestorage.app",
-    messagingSenderId: "992524312569",
-    appId: "1:992524312569:web:52ade6a2aa0de5ad932728",
-    measurementId: "G-GRLTXMMVR5"
+let cards = [];
+
+// Retrieve saved flashcards from localStorage on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedCards = localStorage.getItem('flashcards');
+    if (savedCards) {
+        cards = JSON.parse(savedCards);
+        updateCardsUI();
+    }
+});
+
+const termInput = document.getElementById('term');
+const definitionInput = document.getElementById('definition');
+const addCardButton = document.getElementById('add-card');
+const saveButton = document.getElementById('save-quizlet');
+const loadButton = document.getElementById('load-quizlet');
+const cardsContainer = document.getElementById('cards');
+
+const updateCardsUI = () => {
+    cardsContainer.innerHTML = '';
+    cards.forEach((card) => {
+        const cardDiv = document.createElement('div');
+        cardDiv.classList.add('card');
+        cardDiv.innerHTML = `
+            <strong>Term:</strong> ${card.term} <br />
+            <strong>Definition:</strong> ${card.definition}
+        `;
+        cardsContainer.appendChild(cardDiv);
+    });
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
-// DOM Elements
-const createButton = document.getElementById('createButton');
-const formContainer = document.getElementById('formContainer');
-const flashcardContainer = document.getElementById('flashcardContainer');
-const submitButton = document.getElementById('submitButton');
-const cancelButton = document.getElementById('cancelButton');
-const questionInput = document.getElementById('question');
-const answerInput = document.getElementById('answer');
-
-// Show the form to create a flashcard
-createButton.addEventListener('click', () => {
-    formContainer.classList.toggle('hidden');
+addCardButton.addEventListener('click', () => {
+    const term = termInput.value.trim();
+    const definition = definitionInput.value.trim();
+    if (term && definition) {
+        cards.push({ term, definition });
+        termInput.value = '';
+        definitionInput.value = '';
+        updateCardsUI();
+    }
 });
 
-// Submit the flashcard
-submitButton.addEventListener('click', () => {
-    const question = questionInput.value.trim();
-    const answer = answerInput.value.trim();
+saveButton.addEventListener('click', () => {
+    localStorage.setItem('flashcards', JSON.stringify(cards));
+    alert('Flashcards saved successfully!');
+});
 
-    if (question && answer) {
-        createFlashcard(question, answer);
-        questionInput.value = '';
-        answerInput.value = '';
-        formContainer.classList.add('hidden');
+loadButton.addEventListener('click', () => {
+    const savedCards = localStorage.getItem('flashcards');
+    if (savedCards) {
+        cards = JSON.parse(savedCards);
+        updateCardsUI();
+        alert('Flashcards loaded successfully!');
     } else {
-        alert("Please fill in both fields.");
+        alert('No flashcards found!');
     }
 });
-
-// Cancel the form
-cancelButton.addEventListener('click', () => {
-    questionInput.value = '';
-    answerInput.value = '';
-    formContainer.classList.add('hidden');
-});
-
-// Function to create a flashcard
-function createFlashcard(question, answer) {
-    const flashcardRef = database.ref('flashcards').push();
-    flashcardRef.set({
-        question: question,
-        answer: answer
-    });
-}
-
-// Function to display flashcards
-function displayFlashcards() {
-    flashcardContainer.innerHTML = ''; // Clear existing flashcards
-    const flashcardsRef = database.ref('flashcards');
-
-    flashcardsRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            Object.keys(data).forEach(key => {
-                const flashcard = data[key];
-                const flashcardDiv = document.createElement('div');
-                flashcardDiv.classList.add('flashcard');
-                flashcardDiv.innerHTML = `
-                    <strong>Question:</strong> ${flashcard.question}<br>
-                    <strong>Answer:</strong> ${flashcard.answer}
-                    <button class="deleteButton" data-id="${key}">Delete</button>
-                `;
-                flashcardContainer.appendChild(flashcardDiv);
-            });
-        }
-    });
-}
-
-// Function to delete a flashcard
-flashcardContainer.addEventListener('click', (event) => {
-    if (event.target.classList.contains('deleteButton')) {
-        const flashcardId = event.target.getAttribute('data-id');
-        deleteFlashcard(flashcardId);
-    }
-});
-
-// Function to delete a flashcard from the database
-function deleteFlashcard(id) {
-    const flashcardRef = database.ref('flashcards/' + id);
-    flashcardRef.remove();
-}
-
-// Initial call to display flashcards
-displayFlashcards();
