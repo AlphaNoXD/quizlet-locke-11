@@ -4,7 +4,7 @@ let cards = [];
 const GITHUB_USERNAME = "AlphaNoXD";
 const GITHUB_REPO = "quizlet-locke-11";
 const FILE_PATH = "flashcards.json";
-const TOKEN = "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"; // Replace with your personal access token.
+const TOKEN = ""; // Replace with your personal access token.
 
 // DOM Elements
 const termInput = document.getElementById('term');
